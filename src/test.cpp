@@ -1,10 +1,12 @@
 #include <iostream>
 #include <stdexcept>
+#include <vector>
 #include <gtest/gtest.h>
 #include "../include/stack.hpp"
 
 
 using namespace stk;
+using namespace std;
 
 TEST(push, test1)
 {
@@ -39,6 +41,7 @@ TEST(pop, test1)
     stack.push(-2352);
     stack.pop();
     stack.pop();
+    std::cout << stack.top();
     EXPECT_TRUE(stack.top() == 777);
 }
 
@@ -70,7 +73,7 @@ TEST(copy, test1)
     EXPECT_TRUE(stack.top() == 777 && new_stack.top() == 5);
 }
 
-TEST(move, test1)
+TEST(move_constructor, test1)
 {
     Stack<int> stack = Stack<int>();
     stack.push(5);
@@ -103,8 +106,16 @@ TEST(destructor, test1)
     EXPECT_NO_THROW(free(stack));
 }
 
+TEST(move_push, test1)
+{
+    Stack<vector<int>> stack = Stack<vector<int>>();
+    vector<int> a = vector<int>(1);
+    stack.push(std::move(a));
+    EXPECT_TRUE(stack.top() == vector<int>(1));
+}
+
 int main(int argc, char** argv)
 {
-        testing::InitGoogleTest(&argc, argv);
-        return RUN_ALL_TESTS();
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
