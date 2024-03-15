@@ -54,6 +54,55 @@ TEST(pop, test3)
     EXPECT_THROW(stack.pop(), std::underflow_error);
 }
 
+TEST(copy, test1)
+{
+    Stack<int> stack = Stack<int>();
+    stack.push(5);
+    stack.push(-1000);
+    stack.pop();
+    stack.push(777);
+    stack.push(2345);
+    stack.push(-2352);
+    stack.pop();
+    stack.pop();
+    Stack<int> new_stack = Stack<int>(stack);
+    new_stack.pop();
+    EXPECT_TRUE(stack.top() == 777 && new_stack.top() == 5);
+}
+
+TEST(move, test1)
+{
+    Stack<int> stack = Stack<int>();
+    stack.push(5);
+    stack.push(-1000);
+    stack.pop();
+    stack.push(777);
+    stack.push(2345);
+    stack.push(-2352);
+    stack.pop();
+    stack.pop();
+    Stack<int> new_stack = Stack<int>(std::move(stack));
+    new_stack.pop();
+    EXPECT_TRUE(new_stack.top() == 5);
+}
+
+TEST(destructor, test1)
+{
+    Stack<int> *stack = new Stack<int>();
+    stack->push(5);
+    stack->push(-1000);
+    stack->pop();
+    stack->push(777);
+    stack->push(2345);
+    stack->push(-2352);
+    stack->pop();
+    stack->pop();
+    stack->push(4444);
+    stack->push(21411);
+    stack->push(-2352);
+    EXPECT_NO_THROW(free(stack));
+}
+
 int main(int argc, char** argv)
 {
         testing::InitGoogleTest(&argc, argv);
