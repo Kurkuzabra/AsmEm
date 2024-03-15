@@ -114,7 +114,7 @@ namespace stk
         {
             if ((size + 1) * sizeof(T) > MAX_ALLOCATION_IN_BYTES)
             {
-                throw std::overflow_error("Stack overflow!");;
+                throw std::bad_alloc("Out of mamory!");
             }
             if (size == 0)
             {
@@ -124,6 +124,10 @@ namespace stk
             else
             {
                 data = (T*)realloc(data, std::min(size * 2 * sizeof(T), MAX_ALLOCATION_IN_BYTES));
+                if (data == nullptr)
+                {
+                    throw 
+                }
                 size = std::min(size * 2, MAX_ALLOCATION_IN_BYTES / sizeof(T));
             }
         }
@@ -136,7 +140,7 @@ namespace stk
     {
         if (length == 0)
         {
-            throw std::underflow_error("Stack underflow!");;
+            throw std::underflow_error("Stack underflow!");
         }
         length--;
         if (length * 4 < size && length != 0)
