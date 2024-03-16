@@ -4,7 +4,7 @@ BUILD_DIR := ./build
 SRC_DIR := ./src
 INCLUDE_DIR := ./include
 TEST_DIR := ./testing
-OBJS := $(BUILD_DIR)/command_creators.o $(BUILD_DIR)/command_factory.o $(BUILD_DIR)/commands.o $(SRC_DIR)/parser.o
+OBJS := $(BUILD_DIR)/command_creators.o $(BUILD_DIR)/command_factory.o $(BUILD_DIR)/commands.o $(BUILD_DIR)/parser.o
 
 SRCS := $(SRC_DIR)/command_creators.cpp $(SRC_DIR)/command_factory.cpp $(SRC_DIR)/commands.cpp $(SRC_DIR)/parser.cpp
 
@@ -41,3 +41,4 @@ run_test: test
 clean:
 	rm -rf $(BUILD_DIR)
 	rm test
+	rm parser
