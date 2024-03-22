@@ -2,10 +2,12 @@
 
 struct custom_exception : public std::exception {
 
-    explicit custom_exception(const char*);
-    const char *what() const noexcept override;
+    explicit custom_exception(const char *message) : message(message) {};
+
+    const char *what() const noexcept override {
+        return message;
+    }
 
 private:
     const char *message;
-    
 };

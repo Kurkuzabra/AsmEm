@@ -11,6 +11,27 @@ public:
     virtual Command* get_cmd() = 0;
 };
 
+class PushrCreator : public CommandCreator
+{
+private:
+    Pushr* command;
+
+public:
+    PushrCreator(ExData&);
+    void nextSet(const std::string, ExData&);
+    Command* get_cmd();
+};
+
+class PoprCreator : public CommandCreator
+{
+private:
+    Popr* command;
+
+public:
+    PoprCreator(ExData&);
+    void nextSet(const std::string, ExData&);
+    Command* get_cmd();
+};
 
 class RetCreator : public CommandCreator
 {

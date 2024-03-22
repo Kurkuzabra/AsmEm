@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
-#include <exception>
+#include <fstream>
 #include "stack.hpp"
 #include "executor_data.hpp"
 
@@ -11,7 +11,32 @@ private:
     
 public:
     virtual void doit(ExData&);
-    // virtual void serialize();
+    virtual void serialize(std::ofstream&) {}
+};
+
+class Linakble : public Command
+{
+public:
+    int value;
+};
+
+
+class Pushr : public Command
+{
+public:
+    std::string reg;
+    Pushr();
+    void doit(ExData&);
+    void serialize(std::ofstream&);
+};
+
+class Popr : public Command
+{
+public:
+    std::string reg;
+    Popr();
+    void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
 class Ret : public Command
@@ -20,65 +45,66 @@ public:
     int value;
     Ret();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
-class Call : public Command
+class Call : public Linakble
 {
 public:
-    int value;
     Call();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
-class Jmp : public Command
+class Jmp : public Linakble
 {
 public:
-    int value;
     Jmp();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
-class Jeq : public Command
+class Jeq : public Linakble
 {
 public:
-    int value;
     Jeq();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
-class Jne : public Command
+class Jne : public Linakble
 {
 public:
-    int value;
     Jne();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
-class Ja : public Command
+class Ja : public Linakble
 {
 public:
-    int value;
     Ja();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
-class Jae : public Command
+class Jae : public Linakble
 {
 public:
-    int value;
     Jae();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
-class Jb : public Command
+class Jb : public Linakble
 {
 public:
-    int value;
     Jb();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
-class Jbe : public Command
+class Jbe : public Linakble
 {
 public:
-    int value;
     Jbe();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
 
@@ -88,6 +114,7 @@ class Label : public Command
 public:
     Label() {}
     void doit(ExData&) {}
+    void serialize(std::ofstream&);
 };
 
 class Beg : public Command
@@ -95,6 +122,7 @@ class Beg : public Command
 public:
     Beg() {}
     void doit(ExData&) {}
+    void serialize(std::ofstream&);
 };
 
 class End : public Command
@@ -102,6 +130,7 @@ class End : public Command
 public:
     End() {}
     void doit(ExData&) {}
+    void serialize(std::ofstream&);
 };
 
 class Push : public Command
@@ -110,6 +139,7 @@ public:
     int value;
     Push();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
 class Pop : public Command
@@ -117,6 +147,7 @@ class Pop : public Command
 public:
     Pop();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
 class Add : public Command
@@ -124,6 +155,7 @@ class Add : public Command
 public:
     Add();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
 class Sub : public Command
@@ -131,6 +163,7 @@ class Sub : public Command
 public:
     Sub();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
 class Mul : public Command
@@ -138,6 +171,7 @@ class Mul : public Command
 public:
     Mul();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
 class Div : public Command
@@ -145,6 +179,7 @@ class Div : public Command
 public:
     Div();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
 class Out : public Command
@@ -152,6 +187,7 @@ class Out : public Command
 public:
     Out();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };
 
 class In : public Command
@@ -159,4 +195,5 @@ class In : public Command
 public:
     In();
     void doit(ExData&);
+    void serialize(std::ofstream&);
 };

@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
-#include <stdexcept>
 #include <cstring>
+#include "exceptions.hpp"
 
-#define MAX_ALLOCATION_IN_BYTES size_t(1000)
+#define MAX_ALLOCATION_IN_BYTES size_t(100000)
 
 namespace stk
 {
@@ -140,7 +140,7 @@ namespace stk
         {
             if (size + 1 > max_objects)
             {
-                throw std::overflow_error("Stack overflow!");
+                throw custom_exception("Stack overflow!");
             }
             else
             {
@@ -159,7 +159,7 @@ namespace stk
         {
             if (size + 1 > max_objects)
             {
-                throw std::overflow_error("Stack overflow!");
+                throw custom_exception("Stack overflow!");
             }
             else
             {
@@ -176,7 +176,7 @@ namespace stk
     {
         if (length == 0)
         {
-            throw std::underflow_error("Stack underflow!");
+            throw custom_exception("Stack underflow!");
         }
         length--;
         if (length * 4 < size && length != 0)
@@ -194,7 +194,7 @@ namespace stk
         }
         else
         {
-            throw std::overflow_error("Stack is empty!");
+            throw custom_exception("Stack is empty!");
         }
     }
 }

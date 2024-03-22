@@ -1,4 +1,44 @@
-#include "../include/command_creators.hpp"
+#include "../../include/command_creators.hpp"
+
+PushrCreator::PushrCreator(ExData& dt)
+{
+    command = new Pushr();
+    stage = 0;
+}
+void PushrCreator::nextSet(const std::string value_, ExData& dt)
+{
+    switch (stage)
+    {
+    case 0:
+        command->reg = value_;
+        stage++;
+        break;
+    }
+}
+Command* PushrCreator::get_cmd()
+{
+    return static_cast<Command *>(command);
+}
+
+PoprCreator::PoprCreator(ExData& dt)
+{
+    command = new Popr();
+    stage = 0;
+}
+void PoprCreator::nextSet(const std::string value_, ExData& dt)
+{
+    switch (stage)
+    {
+    case 0:
+        command->reg = value_;
+        stage++;
+        break;
+    }
+}
+Command* PoprCreator::get_cmd()
+{
+    return static_cast<Command *>(command);
+}
 
 RetCreator::RetCreator(ExData& dt)
 {
@@ -21,6 +61,7 @@ void CallCreator::nextSet(const std::string value_, ExData& dt)
     switch (stage)
     {
     case 0:
+        std::cout << "aoooa" << std::endl;
         for (int i = 0; i < dt.label_names.size(); i++)
         {
             if (dt.label_names[i] == value_)
@@ -30,7 +71,8 @@ void CallCreator::nextSet(const std::string value_, ExData& dt)
                 return;
             }
         }
-        throw std::overflow_error("dfb");
+        command->value = -1;
+        dt.unmatched_links.push_back(std::make_pair(dt.iteration, value_));
     }
     
 }
@@ -58,7 +100,8 @@ void JmpCreator::nextSet(const std::string value_, ExData& dt)
                 return;
             }
         }
-        throw std::overflow_error("dfb");
+        command->value = -1;
+        dt.unmatched_links.push_back(std::make_pair(dt.iteration, value_));
     }
     
 }
@@ -85,7 +128,8 @@ void JeqCreator::nextSet(const std::string value_, ExData& dt)
                 return;
             }
         }
-        throw std::overflow_error("dfb");
+        command->value = -1;
+        dt.unmatched_links.push_back(std::make_pair(dt.iteration, value_));
     }
     
 }
@@ -112,7 +156,8 @@ void JneCreator::nextSet(const std::string value_, ExData& dt)
                 return;
             }
         }
-        throw std::overflow_error("dfb");
+        command->value = -1;
+        dt.unmatched_links.push_back(std::make_pair(dt.iteration, value_));
     }
     
 }
@@ -139,7 +184,8 @@ void JaCreator::nextSet(const std::string value_, ExData& dt)
                 return;
             }
         }
-        throw std::overflow_error("dfb");
+        command->value = -1;
+        dt.unmatched_links.push_back(std::make_pair(dt.iteration, value_));
     }
     
 }
@@ -166,7 +212,8 @@ void JaeCreator::nextSet(const std::string value_, ExData& dt)
                 return;
             }
         }
-        throw std::overflow_error("dfb");
+        command->value = -1;
+        dt.unmatched_links.push_back(std::make_pair(dt.iteration, value_));
     }
     
 }
@@ -193,7 +240,8 @@ void JbCreator::nextSet(const std::string value_, ExData& dt)
                 return;
             }
         }
-        throw std::overflow_error("dfb");
+        command->value = -1;
+        dt.unmatched_links.push_back(std::make_pair(dt.iteration, value_));
     }
     
 }
@@ -220,7 +268,8 @@ void JbeCreator::nextSet(const std::string value_, ExData& dt)
                 return;
             }
         }
-        throw std::overflow_error("dfb");
+        command->value = -1;
+        dt.unmatched_links.push_back(std::make_pair(dt.iteration, value_));
     }
     
 }

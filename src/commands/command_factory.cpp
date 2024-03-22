@@ -1,4 +1,4 @@
-#include "../include/command_factory.hpp"
+#include "../../include/command_factory.hpp"
 
 CommandFactory::CommandFactory() {}
 
@@ -80,6 +80,14 @@ CommandCreator *CommandFactory::get_creator(std::string cmd__, ExData& dt)
     else if (cmd__ == "ret")
     {
         return new RetCreator(dt);
+    }
+    else if (cmd__ == "pushr")
+    {
+        return new PushrCreator(dt);
+    }
+    else if (cmd__ == "popr")
+    {
+        return new PoprCreator(dt);
     }
     else
     {

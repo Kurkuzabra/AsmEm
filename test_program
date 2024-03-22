@@ -1,0 +1,38 @@
+compute:
+
+	pushr bx
+	pushr bx
+	mul
+
+	push 4
+	pushr ax
+	pushr cx
+	mul
+	mul
+	sub
+
+	popr ax
+
+	pushr ax
+	push 0
+	jbe return
+
+	push -1
+	popr ax
+
+return:
+	ret
+
+beg
+	in
+	popr ax
+	in
+	popr bx
+	in
+	popr cx
+
+	call compute
+
+	pushr ax
+	out
+end
