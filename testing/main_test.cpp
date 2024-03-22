@@ -15,14 +15,14 @@ int main(int argc, char **argv)
     auto parser = read_from_asm_file(filename);
     auto commands = parser.get_cmds();
     auto dt = parser.get_ex_data();
-    std::ofstream out("out.txt", std::ios::binary);
+    std::ofstream out("out", std::ios::binary);
 
     Serialize::serialize(out, commands);
     Serialize::serialize(out, dt);
 
     out.close();
     
-    std::ifstream in("out.txt", std::ios::binary);
+    std::ifstream in("out", std::ios::binary);
 
     std::vector<Command*> comms = Serialize::deserialize_commands(in);
     ExData dt1 = Serialize::deserialize_dt(in);
