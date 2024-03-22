@@ -6,9 +6,9 @@ INCLUDE_DIR := ./include
 TEST_DIR := ./testing
 
 OBJS := $(BUILD_DIR)/command_creators.o $(BUILD_DIR)/command_factory.o $(BUILD_DIR)/commands.o $(BUILD_DIR)/token_parser.o\
-	$(BUILD_DIR)/asm_parser.o $(BUILD_DIR)/executor.o $(BUILD_DIR)/serialization.o $(BUILD_DIR)/main_prog.o
+	$(BUILD_DIR)/asm_parser.o $(BUILD_DIR)/executor.o $(BUILD_DIR)/serialization.o $(BUILD_DIR)/main_test.o
 
-all: test main_prog
+all: test main_test
 
 $(BUILD_DIR):
 	mkdir $(BUILD_DIR)
@@ -35,8 +35,8 @@ $(BUILD_DIR)/executor.o: $(BUILD_DIR) $(SRC_DIR)/compiling/executor.cpp $(BUILD_
 	$(CC) $(CXXFLAGS) -c $(SRC_DIR)/compiling/executor.cpp -o $(BUILD_DIR)/executor.o
 
 
-$(BUILD_DIR)/main_prog.o: $(BUILD_DIR) $(SRC_DIR)/main_prog.cpp $(BUILD_DIR)/asm_parser.o $(BUILD_DIR)/executor.o
-	$(CC) $(CXXFLAGS) -c $(SRC_DIR)/main_prog.cpp -o $(BUILD_DIR)/main_prog.o
+$(BUILD_DIR)/main_test.o: $(BUILD_DIR) $(TEST_DIR)/main_test.cpp $(BUILD_DIR)/asm_parser.o $(BUILD_DIR)/executor.o
+	$(CC) $(CXXFLAGS) -c $(TEST_DIR)/main_test.cpp -o $(BUILD_DIR)/main_test.o
 
 $(BUILD_DIR)/test.o: $(BUILD_DIR) $(TEST_DIR)/test.cpp $(BUILD_DIR)/command_factory.o
 	$(CC) $(CXXFLAGS) -c $(TEST_DIR)/test.cpp -o $(BUILD_DIR)/test.o
@@ -44,8 +44,8 @@ $(BUILD_DIR)/test.o: $(BUILD_DIR) $(TEST_DIR)/test.cpp $(BUILD_DIR)/command_fact
 test: $(BUILD_DIR)/test.o $(OBJS)
 	$(CC) $(CXXFLAGS) $(BUILD_DIR)/test.o -o test -lgtest -lpthread
 
-main_prog: $(BUILD_DIR)/main_prog.o
-	$(CC) $(CXXFLAGS) $(OBJS) -o main_prog
+main_test: $(BUILD_DIR)/main_test.o
+	$(CC) $(CXXFLAGS) $(OBJS) -o main_test
 
 
 run_test: test
@@ -54,4 +54,4 @@ run_test: test
 clean:
 	rm -rf $(BUILD_DIR)
 	rm test
-	rm parser
+	rm main_test

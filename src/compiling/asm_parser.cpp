@@ -15,6 +15,7 @@ bool AsmParser::parse_command()
         CommandCreator* creator = factory.get_creator(token.substr(0, token.length() - 1), dt);
         commands.push_back(creator->get_cmd());
         dt.iteration++;
+        delete creator;
         return true;
     }
 
@@ -28,6 +29,7 @@ bool AsmParser::parse_command()
     }
     commands.push_back(creator->get_cmd());
     dt.iteration++;
+    delete creator;
     return true;
 }
 
@@ -69,4 +71,20 @@ std::vector<Command*>& AsmParser::get_cmds()
 ExData& AsmParser::get_ex_data()
 {
     return dt;
+}
+
+AsmParser read_from_asm_file(char* filename)
+{
+    std::ifstream inFile;
+    inFile.open(filename);
+    std::stringstream strStream;
+    strStream << inFile.rdbuf();
+    std::string input = strStream.str();
+    inFile.close();
+
+    stk::Stack<int> comp_stk = stk::Stack<int>();
+    AsmParser parser = AsmParser(input, comp_stk);
+    parser.parse_all();
+
+    return parser;
 }

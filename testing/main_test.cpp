@@ -8,22 +8,6 @@
 #include "../include/executor.hpp"
 #include "../include/serialization.hpp"
 
-AsmParser read_from_asm_file(char* filename)
-{
-    std::ifstream inFile;
-    inFile.open(filename);
-    std::stringstream strStream;
-    strStream << inFile.rdbuf();
-    std::string input = strStream.str();
-    inFile.close();
-
-    stk::Stack<int> comp_stk = stk::Stack<int>();
-    AsmParser parser = AsmParser(input, comp_stk);
-    parser.parse_all();
-
-    return parser;
-}
-
 int main(int argc, char **argv)
 {
     auto s = Serialize();
@@ -43,11 +27,18 @@ int main(int argc, char **argv)
     std::vector<Command*> comms = Serialize::deserialize_commands(in);
     ExData dt1 = Serialize::deserialize_dt(in);
 
-    
-
     in.close();
 
     auto base_stk = stk::Stack<int>();
     Executor ex = Executor(base_stk, comms, dt1);
     ex.execute();
+
+    for (int i = 0; i < commands.size(); i++)
+    {
+        delete commands[i];
+    }
+    for (int i = 0; i < comms.size(); i++)
+    {
+        delete comms[i];
+    }
 }

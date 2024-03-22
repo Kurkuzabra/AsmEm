@@ -47,3 +47,5 @@ public:
     ExData& get_ex_data();
 
 };
+
+AsmParser read_from_asm_file(char* filename);
