@@ -10,7 +10,7 @@ namespace stk
     template <typename T>
     class Stack
     {
-    private:
+    public:
         T *data;
         size_t length;
         size_t size;
@@ -18,11 +18,12 @@ namespace stk
 
         void move_all_data(Stack<T> &&);
         void copy_all_data(const Stack<T> &);
+        void link_all_data(Stack<T> &);
         void resize(const size_t);
 
     public:
         Stack();
-        Stack(const Stack<T> &);
+        Stack(Stack<T> &);
         Stack(Stack<T> &&);
         ~Stack();
         void push(T&&);
@@ -30,7 +31,8 @@ namespace stk
         void pop();
         // T& top();
         const T& top() const;
-        // Stack<T> &operator=(const Stack<T> &);
+        Stack<T> operator=(const Stack<T> &);
+        Stack<T> &operator=(Stack<T> &);
         // Stack<T> &operator=(Stack<T> &&);
     };
 }
@@ -74,12 +76,29 @@ namespace stk
         }
     }
 
-    // template <typename T>
-    // Stack<T> &Stack<T>::operator=(const Stack<T> &copy)
-    // {
-    //     copy_all_data(copy);
-    //     return *this;
-    // }
+    template <typename T>
+    void Stack<T>::link_all_data(Stack<T> &link)
+    {
+        this->length = link.length;
+        this->size = link.size;
+        this->data = link.data;
+    }
+
+    template <typename T>
+    Stack<T> &Stack<T>::operator=(Stack<T> &link)
+    {
+        std::cout << "link called" << std::endl;
+        link_all_data(link);
+        return *this;
+    }
+
+    template <typename T>
+    Stack<T> Stack<T>::operator=(const Stack<T> &copy)
+    {
+        std::cout << "copy called" << std::endl;
+        link_all_data(copy);
+        return *this;
+    }
 
     // template <typename T>
     // Stack<T> &Stack<T>::operator=(Stack<T> &&move_copy)
@@ -97,9 +116,9 @@ namespace stk
     }
 
     template <typename T>
-    Stack<T>::Stack(const Stack<T> &copy)
+    Stack<T>::Stack(Stack<T> &link)
     {
-        copy_all_data(copy);
+        link_all_data(link);
     }
 
     template <typename T>

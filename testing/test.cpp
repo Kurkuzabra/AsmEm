@@ -32,7 +32,8 @@ TEST(push, test2)
 
 TEST(pop, test1)
 {
-    Stack<int> stack = Stack<int>();
+    Stack<int> sta = Stack<int>();
+    Stack<int> &stack = sta;
     stack.push(5);
     stack.push(-1000);
     stack.pop();

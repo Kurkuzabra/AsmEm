@@ -3,12 +3,9 @@
 
 class CommandFactory
 {
-private:
-    stk::Stack<int>& stack;
 public:
 
-    CommandFactory(stk::Stack<int>&);
-    CommandFactory(stk::Stack<int>&&);
+    CommandFactory();
 
-    CommandCreator* get_creator(std::string);
+    CommandCreator* get_creator(std::string, ExData& dt);
 };
